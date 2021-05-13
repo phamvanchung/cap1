@@ -26,28 +26,25 @@ module.exports.create = (req, res) =>{
     res.render('posts/create')
 }
 
-module.exports.addPost = (req, res) =>{
-    let {name, address, description, phone }= req.body;
-    let newFilename = req.file;
-    let posts = new Posts({
-        name: name,
-        address:address,
-        description:description,
-        phone: phone,
-        avatar:newFilename,
-    });
-    return posts.save()
-    .then((posts) =>{
-      res.json(posts);
-    //   console.log(posts, '[posts]');
-    })
-    .catch((err) =>{
-        console.log(err, '[err]');
-    })
-    // res.json( req.file)
-    // console.log(req.body);
-    
-}
+module.exports.addPost =  (req, res) =>{
+        const {name, address, description, phone,avatar }= req.body;
+        const file = req.file.originalname;
+        const posts = new Posts({
+            name: name,
+            address:address,
+            description:description,
+            phone: phone,
+            avatar:file,
+        });
+        return posts.save()
+        .then((posts) =>{
+          res.json(posts);
+        })
+        .catch((err) =>{
+            console.log(err, '[err]');
+            alert('err')
+        })
+    }
 
 module.exports.showAddPost = (req, res) =>{
     Posts.find({})
@@ -90,3 +87,27 @@ module.exports.delete = (req, res) =>{
     })
 }
 
+module.exports.showImg = (req, res) =>{
+    // Posts.find().toArray((err,files)=>{
+        // const imgArray= result.map(element => element._id);
+        // console.log(imgArray);
+        // if (err) return console.log(err)
+        // res.send(imgArray)
+        
+    // })
+}
+
+
+
+module.exports.showImgId = (req, res) =>{
+    // var filename = req.params.id;
+    // var ObjectId = require('mongodb').ObjectId; 
+    // var id = req.params._id;       
+    // var filename = new ObjectId(id);
+    // let posts = Posts.findOne({'_id': filename},(err, result) => {
+    //     if (err) return console.log(err)
+    //     res.contentType('image/jpeg');
+    //     res.json(posts)
+
+    // })
+}

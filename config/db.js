@@ -7,10 +7,10 @@ async function connect (){
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true
-        });console.log('connect successfully!');
+        });console.log('Connect database successfully!');
         
     }catch(error){  
-        console.log('connect fail');
+        console.log('Could not connect to the database');
     }
 }
 

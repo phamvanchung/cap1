@@ -4,11 +4,17 @@ const Schema = mongoose.Schema;
 
 
 const Posts = new Schema({
-  name: {type: String,},
-  address: {type: String,},
-  description: {type: String,},
-  phone:{type: String,},
-  avatar: {type: String,}
+    _id: mongoose.Schema.Types.ObjectId,
+    name: {type: String,trim: true,},
+    address: {type: String,trim: true,},
+    description: {type: String,},
+    phone:{type: String,trim: true,},
+    avatar: {
+        type: String,
+        data: Buffer, 
+        contentType: String , 
+        path : String
+        }
 },
 { timestamps:true }
 );
