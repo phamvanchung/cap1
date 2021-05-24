@@ -1,29 +1,5 @@
-const Users =  require('./model/userModel');
+const Users =  require('../model/userModel');
 const jwt = require('jsonwebtoken');
-
-
-// module.exports.login = async (req, res, next) =>{
-//    const {email, password }= req.body;
-//    Users.findOne({
-//        email: email,
-//        password: password
-//     })
-//     .then(data =>{
-//         if(data){
-//             var token = jwt.sign({_id:data._id},'mk')
-//             return res.json({
-//                 message:'success',
-//                 token: token
-//             })
-//         }else{
-//             return res.json('fail!')
-//         }
-//     })
-//     .catch(err=>{
-//         res.status(500).send(err)
-//     })
-// // };
-
 
 module.exports.login = async (req, res, next) =>{
     const email = req.body.email;
@@ -41,8 +17,8 @@ module.exports.login = async (req, res, next) =>{
             code : 401
         })
     }
-    let accessToken = jwt.sign({name : user.email}, 'accessToken', {expiresIn : '1h'});
-    let refreshToken = jwt.sign({name : user.email},'refreshToken',{expiresIn: '7d'});
+    let accessToken = jwt.sign({email : user.email}, 'accessToken', {expiresIn : '1h'});
+    let refreshToken = jwt.sign({email : user.email},'refreshToken',{expiresIn: '7d'});
     res.json({
         code : 200,
         message:"dang nhap thanh cong",
@@ -55,7 +31,7 @@ module.exports.login = async (req, res, next) =>{
 }
 
 module.exports.register = (req, res) => {
-    const {email,password,username,phone} = req.body;
+    const {email,password,userName,phoneUser} = req.body;
     Users.findOne({email: email})
     .then(data => {
         if(data){
@@ -65,8 +41,8 @@ module.exports.register = (req, res) => {
             return Users.create({
                 email:email,
                 password:password,
-                userName:username,
-                phoneUser:phone,
+                userName:userName,
+                phoneUser:phoneUser,
             })
         }
     })
@@ -76,17 +52,17 @@ module.exports.register = (req, res) => {
         res.status(500).send(err))
 };
 
-module.exports.logout = async (req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-            return token.token != req.token
-        })
-        await req.user.save()
-        res.send()
-    } catch (error) {
-        res.status(500).send(error)
-    }
-};
+// module.exports.logout = async (req, res) => {
+//     // try {
+//     //     req.user.tokens = req.user.tokens.filter((token) => {
+//     //         return token.token != req.token
+//     //     })
+//     //     await req.user.save()
+//     //     res.send()
+//     // } catch (error) {
+//     //     res.status(500).send(error)
+//     // }
+// };
 
 module.exports.private =  (req, res, next) => {
     try {

@@ -7,7 +7,7 @@ var storage = multer.diskStorage({
         cb(null, './public/uploads'); //hỉnh ảnh sẽ chưa trong folder uploads
     },
     filename: (req, file, cb) => {
-        cb(null , file.originalname); ;// mặc định sẽ save name của hình ảnh
+        cb(null , file.originalname + '-' + Date.now()); ;// mặc định sẽ save name của hình ảnh
         // là name gốc, chúng ta có thể rename nó.  
     }
 })

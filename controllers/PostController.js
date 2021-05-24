@@ -1,7 +1,7 @@
-const Posts = require('./model/postModel');
+const Posts = require('../model/postModel');
 // const fs =require('fs')
 
-module.exports.show = (req, res, next) =>{
+module.exports.getPost = (req, res, next) =>{
     let posts = Posts.find()
     .then((posts) =>{
         res.json(posts);
@@ -11,7 +11,7 @@ module.exports.show = (req, res, next) =>{
     })
 };
 
-module.exports.showId = (req, res) =>{
+module.exports.getIdPost = (req, res) =>{
     let postId = req.params.postId;
     Posts.findOne({_id: postId})
     .then(posts =>{
@@ -57,7 +57,7 @@ module.exports.showAddPost = (req, res) =>{
     })
 }
 
-module.exports.update = (req, res) =>{
+module.exports.updatePost = (req, res) =>{
     let postId = req.params.postId;
     let {name, address, description, phone }= req.body;
     let updatePost = new Posts({ 
@@ -65,18 +65,17 @@ module.exports.update = (req, res) =>{
         address:address,
         description:description,
         phone: phone,
-        // avatar: req.file.filename
     });
-    return updatePost.findByIdAndUpdate({_id:postId})
+    return Posts.findByIdAndUpdate({_id:postId},{$set:updatePost})
     .then((posts) => {
-        res.json(posts)
+        res.json({message:"update success",posts})
     })
     .catch((err) =>{
         res.status(400).send(err)
     })
 }
 
-module.exports.delete = (req, res) =>{
+module.exports.deletePost = (req, res) =>{
     let postId = req.params.postId;
     Posts.findByIdAndDelete({_id:postId})
     .then((posts) => {
@@ -85,29 +84,4 @@ module.exports.delete = (req, res) =>{
     .catch((err) =>{
         res.status(400).send(err)
     })
-}
-
-module.exports.showImg = (req, res) =>{
-    // Posts.find().toArray((err,files)=>{
-        // const imgArray= result.map(element => element._id);
-        // console.log(imgArray);
-        // if (err) return console.log(err)
-        // res.send(imgArray)
-        
-    // })
-}
-
-
-
-module.exports.showImgId = (req, res) =>{
-    // var filename = req.params.id;
-    // var ObjectId = require('mongodb').ObjectId; 
-    // var id = req.params._id;       
-    // var filename = new ObjectId(id);
-    // let posts = Posts.findOne({'_id': filename},(err, result) => {
-    //     if (err) return console.log(err)
-    //     res.contentType('image/jpeg');
-    //     res.json(posts)
-
-    // })
 }

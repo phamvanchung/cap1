@@ -1,4 +1,4 @@
-const Shops = require('./model/shopModel');
+const Shops = require('../model/shopModel');
 
 module.exports.getAllShop = (req, res, next) =>{
     let shops = Shops.find()

@@ -1,4 +1,4 @@
-const Users = require('./model/userModel')
+const Users = require('../model/userModel')
 
 
 module.exports.getAllUser = (req,res) => {
@@ -42,8 +42,21 @@ module.exports.addUser = (req, res,next) =>{
 }
 
 module.exports.updateUser = (req, res) =>{
-
-
+    const userId = req.params.userId;
+    let {email, password, userName, phoneUser} = req.body;
+    let updateUser = new Users({
+        email: email,
+        password: password,
+        userName: userName,
+        phoneUser: phoneUser,
+    })
+    return Users.findByIdAndUpdate({_id:userId},{$set:updateUser})
+    .then((users)=>{
+        res.json({message:"update success",users})
+    })
+    .catch((err)=>{
+        res.status(400).send(err)
+    })
 }
 module.exports.deleteUser = (req, res) =>{
     let userId = req.params.userId;

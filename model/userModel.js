@@ -24,10 +24,12 @@ const Users = new Schema({
         type: String,
         required:true,
     },
-    role: {
-        type: String,
-        // default: 'moderator',
-    },
+    roles: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role"
+        }
+      ],
     avatar:{type: String,}
 },
 { timestamps:true }
