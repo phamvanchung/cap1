@@ -11,7 +11,7 @@ module.exports.getAllUser = (req,res) => {
     })
 };
     
-
+//getUserId
 module.exports.getIdUser = (req,res) => {
     let userId  = req.params.userId;
     Users.findOne({_id:userId})
@@ -43,14 +43,7 @@ module.exports.addUser = (req, res,next) =>{
 
 module.exports.updateUser = (req, res) =>{
     const userId = req.params.userId;
-    let {email, password, userName, phoneUser} = req.body;
-    let updateUser = new Users({
-        email: email,
-        password: password,
-        userName: userName,
-        phoneUser: phoneUser,
-    })
-    return Users.findByIdAndUpdate({_id:userId},{$set:updateUser})
+    return Users.findByIdAndUpdate({_id:userId},req.body)
     .then((users)=>{
         res.json({message:"update success",users})
     })

@@ -41,7 +41,6 @@ module.exports.addPost =  (req, res) =>{
           res.json(posts);
         })
         .catch((err) =>{
-            console.log(err, '[err]');
             alert('err')
         })
     }
@@ -59,14 +58,7 @@ module.exports.showAddPost = (req, res) =>{
 
 module.exports.updatePost = (req, res) =>{
     let postId = req.params.postId;
-    let {name, address, description, phone }= req.body;
-    let updatePost = new Posts({ 
-        name: name,
-        address:address,
-        description:description,
-        phone: phone,
-    });
-    return Posts.findByIdAndUpdate({_id:postId},{$set:updatePost})
+    return Posts.findByIdAndUpdate({_id:postId},req.body)
     .then((posts) => {
         res.json({message:"update success",posts})
     })

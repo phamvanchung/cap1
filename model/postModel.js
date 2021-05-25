@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 
 const Posts = new Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     name: {type: String,trim: true,},
     address: {type: String,trim: true,},
     description: {type: String,},
