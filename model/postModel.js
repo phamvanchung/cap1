@@ -10,9 +10,6 @@ const Posts = new Schema({
     phone:{type: String,trim: true,},
     avatar: {
         type: String,
-        data: Buffer, 
-        contentType: String , 
-        path : String
         }
 },
 { timestamps:true }

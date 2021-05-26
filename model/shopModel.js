@@ -18,9 +18,8 @@ const Shops = new Schema ({
     },
     phoneShop:{
         type:String,
-        required: true
     },
-    avatarUser:{
+    avatar:{
         type: String,
     },
     role:{type: String,
