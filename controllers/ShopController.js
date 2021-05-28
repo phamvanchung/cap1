@@ -11,14 +11,14 @@ module.exports.getAllShop = (req, res, next) =>{
 }
 
 module.exports.getIdShop = (req, res) =>{
-    let shopId = req.params.shopId;
-    Shops.findOne({ _id: shopId})
-    .then((shops)=>{
-        res.json(shops);
-    })
-    .catch((err)=>{
-        res.status(400).send(err)
-    })
+    // let shopId = req.params.shopId;
+    // Shops.findOne({ _id: shopId})
+    // .then((shops)=>{
+    //     res.json(shops);
+    // })
+    // .catch((err)=>{
+    //     res.status(400).send(err)
+    // })
 }
 
 module.exports.addShop = (req,res) =>{

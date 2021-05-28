@@ -24,13 +24,11 @@ const Users = new Schema({
         type: String,
         required:true,
     },
-    roles: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Role"
-        }
-      ],
-    avatar:{type: String,}
+    permission:{
+          type: String,
+          default:'customer'
+        },
+    avatar:{type: String,},
 },
 { timestamps:true }
 );

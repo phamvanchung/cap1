@@ -3,13 +3,15 @@ const userRoute = require('./userRoute');
 const authRoute = require('./authRoutes');
 const shopRoute = require('./shopRoute');
 const meRoute = require('./meRoute');
-// const storageRoute = require('./storageRoute');
+const storageRoute = require('./storagesRoute');
+const cartRoute = require('./cartRoute');
 
 module.exports = function (app){
 
     app.use('/api',authRoute);
     app.use('/api/me',meRoute);
-    // app.use('/api/photo',storageRoute);
+    app.use('/api/cart',cartRoute);
+    app.use('/api/storages',storageRoute);
     app.use('/api/shops',shopRoute);
     app.use('/api/posts', postRoute);
     app.use('/api/users', userRoute);

@@ -8,9 +8,8 @@ const Posts = new Schema({
     address: {type: String,trim: true,},
     description: {type: String,},
     phone:{type: String,trim: true,},
-    avatar: {
-        type: String,
-        }
+    avatar: {type: String,},
+    
 },
 { timestamps:true }
 );

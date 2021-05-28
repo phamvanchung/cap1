@@ -31,7 +31,8 @@ module.exports.login = async (req, res, next) =>{
 }
 
 module.exports.register = (req, res) => {
-    const {email,password,userName,phoneUser} = req.body;
+    const {email,password,userName,phoneUser,permission} = req.body;
+    const avatar = req.file.originalname;
     Users.findOne({email: email})
     .then(data => {
         if(data){
@@ -43,6 +44,8 @@ module.exports.register = (req, res) => {
                 password:password,
                 userName:userName,
                 phoneUser:phoneUser,
+                avatar:avatar,
+                permission:permission
             })
         }
     })
