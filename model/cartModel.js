@@ -7,16 +7,17 @@ const CartSchema = new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Users"
     },
-    shopId:{
+    postId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Shops"
+        ref:"Posts"
     },
-    postInCart:[],
+    // postInCart:[],
     firstName:{type:String,},
     lastName:{type:String,},
     email:{type:String,},
-    ConfirmEmail:{type:String,},
+    confirmEmail:{type:String,},
     phone:{type:Number,},
+    address:{type:String,},
 },{
     timestamps:true,
 })

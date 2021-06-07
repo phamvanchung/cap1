@@ -1,8 +1,17 @@
 const Posts = require('../model/postModel');
-// const fs =require('fs')
 
-module.exports.getPost = (req, res, next) =>{
-    let posts = Posts.find()
+const fuzzySearch = (text) => {
+    const regex = text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    return new RegExp(regex, 'gi');
+}
+
+module.exports.getPost = (req, res) =>{
+    const { q } = req.query;
+    const conditionFind = {};
+    if (q) {
+        conditionFind.address = fuzzySearch(q)
+        }
+    Posts.find(conditionFind)
     .then((posts) =>{
         res.json(posts);
     })
@@ -22,10 +31,6 @@ module.exports.getIdPost = (req, res) =>{
     })
 }
 
-module.exports.create = (req, res) =>{
-    res.render('posts/create')
-}
-
 module.exports.addPost =  (req, res) =>{
         const {name, address, description, phone,avatar }= req.body;
         const file = req.file.originalname;
@@ -42,22 +47,13 @@ module.exports.addPost =  (req, res) =>{
         })
         .catch((err) =>{
             alert('err')
+            res.status(400).send(err)
         })
     }
 
-module.exports.showAddPost = (req, res) =>{
-    Posts.find({})
-    .then(posts =>{
-        res.json(posts)
-      console.log(posts, '[posts]');
-    })
-    .catch(err =>{
-        res.status(400).send(err)
-    })
-}
 
 module.exports.updatePost = (req, res) =>{
-    let postId = req.params.postId;
+    let postId  = req.params.postId;
     return Posts.findByIdAndUpdate({_id:postId},req.body)
     .then((posts) => {
         res.json({message:"update success",posts})
@@ -77,3 +73,13 @@ module.exports.deletePost = (req, res) =>{
         res.status(400).send(err)
     })
 }
+
+// module.exports.search = (req, res) =>{
+//     var name = req.query.name;
+//     var data = posts.filter(function(post){
+//         return post.name.toLowerCase().indexOf(name.toLowerCase())!==-1;
+//     })
+//     .then(res =>{
+//         res.json(data)
+//     })
+// }

@@ -22,8 +22,6 @@ const Shops = new Schema ({
     avatar:{
         type: String,
     },
-    role:{type: String,
-    }
 },
 { timestamps:true }
 );

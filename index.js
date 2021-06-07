@@ -1,3 +1,4 @@
+require ("dotenv").config();
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -5,7 +6,6 @@ const path = require('path');
 const db = require('./config/db');
 const route = require('./routes/indexRoutes');
 const exphbs  = require('express-handlebars');
-// var bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors');
 const session = require('express-session')
@@ -25,7 +25,8 @@ app.set('views', path.join(__dirname, 'resources','views'));
 
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json())
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname,'public/uploads')))
+// app.use(express.static("public/uploads/"));
 
 
 //use express session

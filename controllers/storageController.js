@@ -2,8 +2,6 @@ var path = require('path');
 var fs = require('fs');
 module.exports.viewImg = async (req, res) => {
     var dir = path.join(__dirname, '../public/uploads');
-    console.log('__dirname',dir);
-    
     var mime = {
         html: 'text/html',
         txt: 'text/plain',

@@ -5,6 +5,7 @@ const shopRoute = require('./shopRoute');
 const meRoute = require('./meRoute');
 const storageRoute = require('./storagesRoute');
 const cartRoute = require('./cartRoute');
+// const verifyToken = require('../middleware/auth');
 
 module.exports = function (app){
 

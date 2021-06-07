@@ -1,6 +1,6 @@
 const Shops = require('../model/shopModel');
 
-module.exports.getAllShop = (req, res, next) =>{
+module.exports.getAllShop = (req, res) =>{
     let shops = Shops.find()
     .then((shops) =>{
         res.json(shops);
@@ -11,27 +11,27 @@ module.exports.getAllShop = (req, res, next) =>{
 }
 
 module.exports.getIdShop = (req, res) =>{
-    // let shopId = req.params.shopId;
-    // Shops.findOne({ _id: shopId})
-    // .then((shops)=>{
+    // let {shopId}  = req.params;
+    // Shops.findOne({_id:shopId})
+    // .then((shops) =>{
     //     res.json(shops);
     // })
-    // .catch((err)=>{
+    // .catch((err) =>{
     //     res.status(400).send(err)
     // })
 }
 
 module.exports.addShop = (req,res) =>{
-    let {nameShop,email,password,phoneShop,avatarShop} = req.body;
-    // let avatarShop = req.file.originalname;
-    let shop = new Shops({
+    let {nameShop,email,password,phoneShop} = req.body;
+    // let avatar = req.file.originalname;
+    let shops = new Shops({
         nameShop:nameShop,
         email:email,
         password:password,
         phoneShop:phoneShop,
-        // avatarShop:avatarShop
+        // avatar:avatar
     })
-    return shop.save()
+    return shops.save()
     .then((shop)=>{
         res.status(201).json(shop)
     })

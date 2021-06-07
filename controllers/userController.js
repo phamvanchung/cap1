@@ -1,4 +1,5 @@
 const Users = require('../model/userModel')
+var bcrypt = require("bcryptjs");
 
 
 module.exports.getAllUser = (req,res) => {
@@ -27,7 +28,7 @@ module.exports.addUser = (req, res,next) =>{
     let avatar = req.file.originalname;
     let users =new Users({
         email: email,
-        password: password,
+        password: bcrypt.hashSync(password,7),
         userName: userName,
         phoneUser: phoneUser,
         avatar: avatar,

@@ -1,10 +1,12 @@
 const Users =  require('../model/userModel');
 const jwt = require('jsonwebtoken');
+var bcrypt = require("bcryptjs");
 
 module.exports.login = async (req, res, next) =>{
     const email = req.body.email;
     const password = req.body.password;
     const user = await Users.findOne({ email: email})
+    
     if(!user) {
         return res.json({
             err : "email and password is incorrect!",
@@ -17,8 +19,8 @@ module.exports.login = async (req, res, next) =>{
             code : 401
         })
     }
-    let accessToken = jwt.sign({email : user.email}, 'accessToken', {expiresIn : '1h'});
-    let refreshToken = jwt.sign({email : user.email},'refreshToken',{expiresIn: '7d'});
+    let accessToken = jwt.sign({id : user._id},process.env.JWT_TOKEN_SECRET, {expiresIn : '1h'});
+    let refreshToken = jwt.sign({id : user._id},process.env.JWT_TOKEN_SECRET,{expiresIn: '7d'});
     res.json({
         code : 200,
         message:"dang nhap thanh cong",
@@ -41,7 +43,7 @@ module.exports.register = (req, res) => {
         else{
             return Users.create({
                 email:email,
-                password:password,
+                password:bcrypt.hashSync(password,7),
                 userName:userName,
                 phoneUser:phoneUser,
                 avatar:avatar,
@@ -67,17 +69,3 @@ module.exports.register = (req, res) => {
 //     // }
 // };
 
-module.exports.private =  (req, res, next) => {
-    try {
-        const token = req.params.token;
-        const result = jwt.verify(token,'mk');
-        if(result){
-            next()
-        }
-    } catch (error) {
-        res.status(500).send(error)
-    }
-    (req, res)=> {
-        res.json('wellcom')
-    }
-}
